@@ -1,0 +1,395 @@
+
+	a{color: black !important;text-decoration:none !important}
+	a:hover{color:blue !important;text-decoration:none !important;}
+		
+	ul {
+	list-style-type:none
+	}
+	
+
+	div#mysagscroller {
+        width: 90%; /*width of scroller*/
+        height: 100%;
+        border: none;
+    }
+
+    .sagscroller {
+        height: 100% !important;
+    }
+
+    div#mysagscroller ul li img {
+        border-width: 0;
+        display: block; /*this causes each image to be flush against each other*/
+    }
+
+    div#mysagscroller ul {
+        margin: 0;
+        padding: 0;
+        background: white;
+        list-style: none;
+    }
+
+    #content {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+		min-height:1000px; /* this for pc */
+    }
+
+    #content p {
+        font-size: 12px !important;
+    }
+
+    #content ul > li {
+        margin-left: 0px !important;
+        padding-right: 20px !important;;
+    }
+
+    p, ul, ol, dl, table, fieldset, blockquote, pre, code {
+        margin-bottom: 5px !important;
+    }
+
+    #content p a {
+        color: #3B5997 !important;
+    }
+
+    #content p a:hover {
+        color: #40A2D1 !important;
+        text-decoration: none;
+    }
+
+    #content ul {
+        margin: 0;
+        padding: 0;
+        background: white;
+        list-style: none;
+    }
+
+    .P9Table {
+        margin: 0px;
+        padding: 5px 10px 5px 0px;
+        width: 100%;
+        box-shadow: 10px 10px 5px #888888;
+
+        -moz-border-radius-bottomleft: 20px;
+        -webkit-border-bottom-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+
+        -moz-border-radius-bottomright: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+
+        -moz-border-radius-topright: 20px;
+        -webkit-border-top-right-radius: 20px;
+        border-top-right-radius: 20px;
+
+        -moz-border-radius-topleft: 20px;
+        -webkit-border-top-left-radius: 20px;
+        border-top-left-radius: 20px;
+    }
+
+    .P9Table table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        margin: 10px;
+        padding-top: 10px;
+    }
+
+    .P9Table td {
+        vertical-align: middle;
+        border: 1px solid #000000;
+        border-width: 0px 0px 0px 0px;
+        text-align: left;
+        padding: 0px;
+        font-size: 12px;
+        font-family: Arial;
+        font-weight: normal;
+        color: #000000;
+    }
+
+    #P9td1 {
+        font-size: 16px;
+        font-family: Arial;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    .divspace {
+        margin-top: 40px;
+    }
+
+    #content {
+        width: 100% !important;
+    }
+
+    .widget {
+        margin-bottom: 10px !important;
+    }
+
+    div#mk-text-block-648 ul li:hover {
+        padding-left: 5px;
+        background-color: #f1f1f1;
+    }
+    div#mk-text-block-648 ul li {
+        list-style: none;
+        font-size: 10pt;
+        font-weight: bold;
+        border: 1px solid #ccc;
+        padding: 1px 3px;
+        margin: 1px;
+    }
+    div#mk-text-block-648 ul li a {
+        display: block;
+    }
+    @media (max-width: 760px) {
+        .shareGroup {
+            width: 100%;
+        }
+
+        .P9Table {
+            margin: 0px;
+            padding-right: 5px !important;
+        }
+
+        .P9Table a {
+            padding: 5px;
+            display: block;
+        }
+
+        #contentContaienr {
+            width: 100%;
+        }
+
+        #content ul > li {
+            padding-right: 10px !important;;
+        }
+
+        body div.theme-page-wrapper .theme-content {
+            padding: 0px !important;
+        }
+
+        .adcontent {
+            display: none;
+        }
+
+        .detailsTd > span {
+            max-width: 100% !important;
+        }
+		
+		#content {
+			min-height:650px; /* for mobile */
+		}
+    }
+
+    @media handheld, only screen and (max-width: 960px) {
+        body div.theme-page-wrapper .theme-content {
+            padding: 0px !important;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .hideStockDate {
+            display: none !important;
+        }
+
+        .smallFontOnMobile {
+            font-size: 10pt !important;
+        }
+
+        .adcontent {
+            display: none;
+        }
+
+    }
+
+    @media (max-width: 470px) {
+        .P9Table td.hidOnMobile {
+            width: 0px !important;
+        }
+
+        .hideStockDate {
+            display: none !important;
+        }
+
+        /* 20150626 KhaledB fix stocks */
+        .padding5OnMobile {
+            padding: 5px !important;
+        }
+
+        .smallFontOnMobile {
+            font-size: 10pt !important;
+        }
+
+        .hidePaddingOnMobile, .hidePaddingOnMobile a {
+            padding: 1px !important;
+        }
+
+        .P9Table span.paddingOnMobile {
+            padding-left: 5px !important;
+        }
+
+        .P9Table span img {
+            display: none;
+        }
+
+        .zeroButtomPadding {
+            padding: 0px !important;
+        }
+
+        .sliderdesc {
+            display: none;
+        }
+
+        .theme-page-wrapper.mk-main-wrapper {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+            margin-right: 0px !important;
+            margin-left: 0px !important;
+        }
+
+        .theme-page-wrapper ul li {
+            margin-left: 0px !important;
+            padding-right: 5px !important;
+        }
+
+        .adcontent {
+            display: none;
+
+        }
+
+        .adcontentTop {
+            display: none;
+
+        }
+		
+		 .adcontentScroll {
+             width: 100%;
+			display: block;
+			overflow: hidden;
+
+        }
+		
+    }
+
+    /** Social Button CSS **/
+
+    .share-btn {
+        display: inline-block;
+        color: white !important;
+        border-radius: 4px;
+		padding: 5px; 
+		width: 50px;
+        text-align: center;
+		margin: 5px
+    }
+
+    .share-btn:hover {
+        background: black !important;
+		transition: background 0.5s !important;
+    }
+
+    .share-btn:active {
+        position: relative;
+        top: 2px;
+        box-shadow: none;
+        color: #e2e2e2;
+        outline: none;
+    }
+
+    .shareGroup {
+        display: block;
+        float: right;
+        margin-right: 20px;
+    }
+
+    .shareGroup a {
+        float: right;
+    }
+
+    .share-btn.twitter {
+        background: #00ACED;
+    }
+
+    .share-btn.google-plus {
+        background: #E14107;
+    }
+
+    .share-btn.facebook {
+        background: #3B5998;
+    }
+
+    .share-btn.linkedin {
+        background: #3B5998;
+    }
+
+    .share-btn.reddit {
+        background: #00ACED;
+    }
+
+    /** end social button css **/
+
+    /*#csbwfs-delaydiv {
+        display: none;
+    }*/
+
+    #filterMenu {
+        width: 100%;
+        display: block;	
+        overflow: hidden;
+    }
+
+    div#controls {
+        width: 104px;
+        margin: auto;
+    }
+
+    div#controls a {
+        width: 24px;
+        height: 24px;
+        float: left;
+        margin: 1px;
+        display: block;
+        background: url('/wp-content/themes/jupiter/images/control-icons-24') no-repeat -72px 0;
+        cursor: pointer;
+    }
+
+    div#controls a#prev {
+        background-position: 0 0px;
+    }
+
+    div#controls a#start {
+        background-position: -24px 0px;
+    }
+
+    div#controls a#stop {
+        background-position: -48px 0px;
+    }
+
+    .adcontent {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+    }
+
+    .adcontentTop {
+        margin: auto;
+        width: 100%;
+        padding: 10px;
+		overflow: hidden;
+
+    }
+
+	.adcontentScroll {
+        margin: auto;
+        width: 80%;
+        padding: 10px;
+		 overflow: hidden;	
+
+    }
+	
+    @media (max-width: 800px) {
+        .hideOnSmall {
+           display: none !important; 
+        }
+    }

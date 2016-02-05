@@ -1,0 +1,70 @@
+/*Options*/
+.col_wrapper {
+    display: none;
+}
+
+
+.col_button {
+	cursor: pointer;
+	font-size: 18px;
+	position: absolute;
+	top: 30px;
+	right: 10px;
+}
+
+.col_options {
+	background-color: white;
+	border: 1px solid silver;
+	border-radius: 5px;
+	display: none;
+	font-size: 12px;
+	line-height: 1.8;
+	padding: 10px 15px;
+	position: absolute;
+	top: 50px;
+	right: 50px;
+}
+
+.col_options > input {
+	cursor: pointer;
+	margin: 0;
+}
+
+/*Drag&Drop*/
+
+.no_select {
+	-moz-user-select: none;
+ 	-webkit-user-select: none;
+	-ms-user-select: none;
+ 	user-select: none;
+}
+
+.col_header {
+	background-color: #DDD;
+	border-radius: 15px 15px 0 0;
+	font-size: 14px;
+	padding: 5px;
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom:-6px;
+	font-weight: bold;
+	font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+}
+	
+}
+
+.col_drag {
+	opacity: 0.4;
+}
+
+.draggable {
+	border: 2px dashed gray;
+}
+
+.drop-target {
+	opacity: 0.8;
+}
+
+.drop-target_header {
+	background-color: #a2d4ff;
+}
