@@ -160,12 +160,39 @@
 						var tmp = document.getElementById('Sports').innerHTML;
 						mypost = formatpost(newposts[i]);
 						document.getElementById('Sports').innerHTML = mypost + tmp;
+						
+						if (newposts[i].sub_category == "NHL") {	
+							var tmp = document.getElementById('NHL').innerHTML;
+							document.getElementById('NHL').innerHTML = mypost + tmp;
+						} 
+						if (newposts[i].sub_category == "NBA") {	
+							var tmp = document.getElementById('NBA').innerHTML;
+							document.getElementById('NBA').innerHTML = mypost + tmp;
+						} 
+						if (newposts[i].sub_category == "NFL") {	
+							var tmp = document.getElementById('NFL').innerHTML;
+							document.getElementById('NFL').innerHTML = mypost + tmp;
+						} 
+						if (newposts[i].sub_category == "MLB") {	
+							var tmp = document.getElementById('MLB').innerHTML;
+							document.getElementById('MLB').innerHTML = mypost + tmp;
+						} 
+						if (newposts[i].sub_category == "College") {	
+							var tmp = document.getElementById('College').innerHTML;
+							document.getElementById('College').innerHTML = mypost + tmp;
+						} 
 					
 					} 
 					else if (newposts[i].category== "Business") {	
 						var tmp = document.getElementById('Business').innerHTML;
 						mypost = formatpost(newposts[i]);
 						document.getElementById('Business').innerHTML = mypost + tmp;
+					
+					} 
+					else if (newposts[i].category== "Politics") {	
+						var tmp = document.getElementById('Politics').innerHTML;
+						mypost = formatpost(newposts[i]);
+						document.getElementById('Politics').innerHTML = mypost + tmp;
 					
 					} 
 					else if (newposts[i].category == "Entertainment") {	
@@ -244,7 +271,25 @@
         <div id="Tech" class="col_data"></div>
 	</div>
 	<div class="col span_1_of_5 col_wrapper">
+        <div id="Politics" class="col_data"></div>
+    </div>
+	<div class="col span_1_of_5 col_wrapper">
         <div id="Notable" class="col_data"></div>
+	</div>
+	<div class="col span_1_of_5 col_wrapper">
+        <div id="NHL" class="col_data"></div>
+	</div>
+	<div class="col span_1_of_5 col_wrapper">
+        <div id="NFL" class="col_data"></div>
+	</div>
+	<div class="col span_1_of_5 col_wrapper">
+        <div id="NBA" class="col_data"></div>
+	</div>
+	<div class="col span_1_of_5 col_wrapper">
+        <div id="MLB" class="col_data"></div>
+	</div>
+	<div class="col span_1_of_5 col_wrapper">
+        <div id="College" class="col_data"></div>
 	</div>
 </div>
 
@@ -267,8 +312,8 @@
 </div>		
 
 
-<div class="col_options"></div>
-
+<div class="col_options">Pick 5:<br></div>
+<!-- drag and drop js -->
 <script>
 /* dynamic content for modal window*/          
 
@@ -307,7 +352,16 @@ $(document).on("click",'a[rel=popover]',function(){
 <script src="js/interact.min.js"></script>
 <script src="js/doptions.js"></script>		
 
-		
+<!-- google analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73557321-1', 'auto');
+  ga('send', 'pageview');
+</script>
 			
 </body>
 </html>

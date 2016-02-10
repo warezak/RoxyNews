@@ -1,6 +1,15 @@
-var doptions = {};
-doptions.maxcol = 5;
-doptions.curcol = 0;
+var doptions = {
+    maxcol: 5,
+    curcol: 0,
+    cols: {
+        News: true,
+        Sports: false,
+        Business: true,
+        Entertainment: true,
+        Tech: true,
+        Notable: true,
+    },
+};
 
 // swap() method for jQuery
 jQuery.fn.swap = function(b){ 
@@ -13,14 +22,14 @@ jQuery.fn.swap = function(b){
     return this;
 };
 
-// Add headers for news columns. Mark news columns as droppable. Show first N columns
+// Add headers for news columns. Mark news columns as droppable. Show selected columns (and not greater than maxcol)
 $('.col_data').each(function(i) {
     var $wrapper = $(this).parent();
     
     $wrapper.addClass('droppable');
     $wrapper.prepend('<h2 class="col_header">' + this.id + '</h2>');
-    if (i < doptions.maxcol) {
-        $wrapper.show();  // show first N
+    if (doptions.cols[this.id] && doptions.curcol < doptions.maxcol) {
+        $wrapper.show();
         doptions.curcol += 1;
     }
 });
