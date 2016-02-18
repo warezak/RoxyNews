@@ -1,16 +1,3 @@
-var doptions = {
-    maxcol: 5,
-    curcol: 0,
-    cols: {
-        News: true,
-        Sports: false,
-        Business: true,
-        Entertainment: true,
-        Tech: true,
-        Notable: true,
-    },
-};
-
 // swap() method for jQuery
 jQuery.fn.swap = function(b){ 
     b = jQuery(b)[0]; 
@@ -22,38 +9,58 @@ jQuery.fn.swap = function(b){
     return this;
 };
 
-// Add headers for news columns. Mark news columns as droppable. Show selected columns (and not greater than maxcol)
+var doptions = {
+    maxcol: 0,  // max visible columns count (initialized in setLayout function)
+    curcol: 0,  // current visible columns count (initialized in setLayout function)
+    layout: 0,  // 1 - standard, 2 - mobile (initialized in setLayout function)
+    cols: {  // default columns
+        News: true,
+        Sports: true,
+        Business: false,
+        Entertainment: true,
+        Tech: true,
+        Notable: false,
+		Politics: true,
+		NHL: false,
+		NBA: false,
+    },
+};
+
+// Add headers for news columns and items for the dropdown list.
 $('.col_data').each(function(i) {
-    var $wrapper = $(this).parent();
-    
+    var $wrapper = $(this).parent();   
     $wrapper.addClass('droppable');
     $wrapper.prepend('<h2 class="col_header">' + this.id + '</h2>');
-    if (doptions.cols[this.id] && doptions.curcol < doptions.maxcol) {
-        $wrapper.show();
-        doptions.curcol += 1;
-    }
+    
+//    var $dmenu = $('.opt_dmenu');
+    $('.opt_dmenu').append('<li data-id="' + this.id + '"><a>' + this.id + '</a></li>');
 });
+
+// Set layout
+setLayout();
 
 //********** Options **********
 
-$('.col_button').click(function() {
-    var $opt = $('.col_options');
+$('.opt_button').click(function() {
+    var $opt = $('.opt_cols'),
+        $optw = $('.opt_wrapper');
 	
-    if (!$opt.is(':visible')) {
+    if (!$optw.is(':visible')) {
         var s = '';
         $('.col_data').each(function(i) {
             s += '<input type="checkbox" data-id=' + this.id + 
                  ($(this).parent().is(':visible') ? ' checked' : (doptions.curcol < doptions.maxcol ? '' : ' disabled')) + 
                  '>&nbsp;' + this.id + '<br>';
         });
-        $opt.html(s);
-        $opt.fadeIn();
+        $opt.html(s);        
+        $optw.offset({ top: $(this).offset().top });
+        $optw.fadeIn();
     } else {
-        $opt.fadeOut();
+        $optw.fadeOut();
     }
 });
 
-$('.col_options').click(function(e) {
+$('.opt_cols').click(function(e) {
     var elem = e.target;
     var data_id = $(elem).attr('data-id');
 	
@@ -72,6 +79,55 @@ $('.col_options').click(function(e) {
         $wrapper.toggle(50);
     }
 });
+
+$('.opt_dmenu > li').click(function(e) {
+    $('.col_wrapper:visible').hide();
+    $('#' + $(this).attr('data-id')).parent().show();
+});
+
+// Set layout according to window width
+$(window).resize(function() {
+    setLayout();
+});
+
+// Set layout
+function setLayout() {
+    if (window.matchMedia('only screen and (max-width: 480px)').matches) {  // not IE9- safe!
+        if (doptions.layout === 2) return;
+        
+        $('.opt_wrapper').hide();        
+        
+        doptions.maxcol = 1;
+        
+        if (doptions.curcol > 1) {
+            $('.col_wrapper:visible:not(:first)').hide();
+            doptions.curcol = 1;
+        }  
+            
+        $('.opt_button').css('display', 'none');
+        $('.opt_dropdown').css('display', 'inline-block');
+        doptions.layout = 2;
+    } else {
+        if (doptions.layout === 1) return;
+        
+        $('.opt_wrapper').hide();
+        
+        $('.col_wrapper:visible').hide();
+        doptions.maxcol = 5;
+        doptions.curcol = 0;
+        
+        $('.opt_dropdown').css('display', 'none');     
+        $('.opt_button').css('display', 'block');
+        doptions.layout = 1;
+    }
+    
+    $('.col_data').each(function(i) {
+        if (doptions.cols[this.id] && doptions.curcol < doptions.maxcol) {
+            $(this).parent().show();
+            doptions.curcol += 1;
+        }
+    });
+}
 
 //********** Drag&Drop functionality **********
 

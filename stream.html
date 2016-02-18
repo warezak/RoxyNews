@@ -6,7 +6,6 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 
 <head>
-
 	<meta charset="utf-8">
 	<!-- Always force latest IE rendering engine & Chrome Frame -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -14,9 +13,7 @@
 	<title>Roxy Streaming News Wire</title>
 	<meta name="description" content="Live, up-to the minute, real-time streaming news wire">
 	<meta name="keywords" content="news, sports, headling, streaming">
-
 	<meta name="author" content="roxy.news">
-
 	<meta http-equiv="cleartype" content="on">
 
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -36,73 +33,50 @@
 	<link rel="stylesheet" href="css/6cols.css" media="all">
 	<link rel="stylesheet" href="css/stream.css" media="all">
 	<!--<link rel="stylesheet" href="css/modal.css" media="all">-->
-	
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-	  
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="css/doptions.css" media="all">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">    
  
 	<style type="text/css">
-
-	/*  
-	======================== 
-	- Note: These styles are just to pretty the basic page up a bit.
-	You should ignore these when copying and pasting into your site 
-	because your stylesheet should take care of making it look pretty!
-	======================== 
-	*/
-	body { padding:5px ; font : 100%/1.2 'Helvetica Neue', arial, helvetica, helve, sans-serif; 	
- }
-	h1 { font-size:2.2em; padding:0 0 .5em 0; }
-	h2 { font-size:1.5em; }
-	.header { padding:0 0; }
-	.col {  padding:0 0; text-align:left;}
-
+        /*  
+        ======================== 
+        - Note: These styles are just to pretty the basic page up a bit.
+        You should ignore these when copying and pasting into your site 
+        because your stylesheet should take care of making it look pretty!
+        ======================== 
+        */
+        body { padding:5px ; font : 100%/1.2 'Helvetica Neue', arial, helvetica, helve, sans-serif; }
+        h1 { font-size:2.2em; padding:0 0 .5em 0; }
+        h2 { font-size:1.5em; }
+        .header { padding:0 0; }
+        .col {  padding:0 0; text-align:left; }
 	</style>
-
+	
+    <script src="http://54.164.183.6:8000/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modal.js"></script>-->
 </head>
 
 <body>
 
- <script src="http://54.164.183.6:8000/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modal.js"></script>-->
-	
-	<script>
-	//format feed
-		function formatpost(post) {
-	
-		var posthtml = '<ul><li><div class="P9Table" >';
-		posthtml +=  '<table><tr><td class="hidOnMobile" style="text-align: left; vertical-align: top;"><span >	<a rel="popover" data-url="'+post.url+'" data-img="https://s3.amazonaws.com/poundnine/www2jpg/'+post.s3key+'.jpg"><img src="http://www.poundnine.com/wp-content/themes/jupiter/images/logo/' + post.logo + '"  style="float:left;padding:3px;" ></a></span></td>';
+<script>
+    // create a new websocket
+    var posts = [];
+    var delay = 1000; //1 seconds
+    var init = "Y";
+    var maxp = 12;  // max number of posts in each column
 		
-		posthtml +=  '<td style="text-align: left; vertical-align: middle;"><span class="zeroButtomPadding" style="max-width: 80%;text-align: left;"><a style="text-decoration: none;" rel="popover" data-url="'+post.url+'" data-img="https://s3.amazonaws.com/poundnine/www2jpg/'+post.s3key+'.jpg">' + post.body + '...</a></span></td>';
-		
-		posthtml +=  '</tr></table></div></li><ul>';
-		
-		return posthtml;
-	}
-	
-	</script>
-
+    var socket = io.connect('http://54.164.183.6:8000/');
     
- <script>
-        // create a new websocket
-		posts = [];
-		var delay=1000; //1 seconds
-		var init = "Y";
-		
-        var socket = io.connect('http://54.164.183.6:8000/');
-        // on message received we print all the data inside the #container div
-        socket.on('notification', function (data) {
-		var ListNews 			= "<b>News</b><br><ul>";
-		var ListSports 			= "<b>Sports</b><br><ul>";
-		var ListBusiness 		= "<b>Business</b><br><ul>";
-		var ListEntertainment 	= "<b>Entertainment</b><br><ul>";
-		var ListTech 			= "<b>Tech</b><br><ul>";
-		var ListOther 			= "<b>Notable</b><br><ul>";
+    // on message received we print all the data inside the #container div
+    socket.on('notification', function (data) {
+//        var ListNews 			= "<b>News</b><br><ul>";
+//        var ListSports 			= "<b>Sports</b><br><ul>";
+//        var ListBusiness 		= "<b>Business</b><br><ul>";
+//        var ListEntertainment 	= "<b>Entertainment</b><br><ul>";
+//        var ListTech 			= "<b>Tech</b><br><ul>";
+//        var ListOther 			= "<b>Notable</b><br><ul>";
 	
 		// loop through latest stream update, pop off new items to posts array
 		var newposts = [];
@@ -111,109 +85,49 @@
 			// does it exist in posts
 			var found = "N";
 			
-			for (i = 0; i < posts.length; i++ )
-				{
-					if (posts[i].body == arrayItem.body)
-					{
-						found = "Y";
-						break; 
-					}
-				}	
+			for (i = 0; i < posts.length; i++ ) {
+                if (posts[i].body == arrayItem.body) {
+                    found = "Y";
+                    break; 
+                }
+            }	
 			if (found == "N") {
 				postdata = { "pubdate": arrayItem.pubdate, "source": arrayItem.source, "heading": arrayItem.heading , "body": arrayItem.body, "profile_image_url": arrayItem.profile_image_url, "category": arrayItem.category, "sub_category": arrayItem.sub_category, "logo": arrayItem.logo, "url": arrayItem.item_url, "s3key": arrayItem.s3key  }
 				posts.push(postdata);
 				newposts.push(postdata);
-				
-				
 			}
 		});
 
 		// sort posts array
-		newposts.sort(function(a, b){
+		newposts.sort(function(a, b) {
 			var dateA=new Date(a.pubdate), dateB=new Date(b.pubdate)
 			return dateA-dateB //sort by date ascending
 		})
 		
 		if (init == "Y") {
-				delay = 150;
-				init = "N"
-		} else 
-		{
-				delay = 500;
+            delay = 0;
+            init = "N"
+		} else {
+            delay = 500;
 		}
 		
 		// loop through array with all new ids
-		if (newposts.length >0 ) {
+		if (newposts.length) {
 			var i = 0, l = newposts.length;
 			(function iterator() {
 				//console.log(newposts[i]);
-				if (newposts[i].hasOwnProperty("category") ) { 
-					if (newposts[i].category == "News") {	
-					
-						var tmp = document.getElementById('News').innerHTML;
-						mypost = formatpost(newposts[i]);
-						document.getElementById('News').innerHTML = mypost + tmp;
-					
-					} 
-					else if (newposts[i].category == "Sports") {	
-		
-						var tmp = document.getElementById('Sports').innerHTML;
-						mypost = formatpost(newposts[i]);
-						document.getElementById('Sports').innerHTML = mypost + tmp;
-						
-						if (newposts[i].sub_category == "NHL") {	
-							var tmp = document.getElementById('NHL').innerHTML;
-							document.getElementById('NHL').innerHTML = mypost + tmp;
-						} 
-						if (newposts[i].sub_category == "NBA") {	
-							var tmp = document.getElementById('NBA').innerHTML;
-							document.getElementById('NBA').innerHTML = mypost + tmp;
-						} 
-						if (newposts[i].sub_category == "NFL") {	
-							var tmp = document.getElementById('NFL').innerHTML;
-							document.getElementById('NFL').innerHTML = mypost + tmp;
-						} 
-						if (newposts[i].sub_category == "MLB") {	
-							var tmp = document.getElementById('MLB').innerHTML;
-							document.getElementById('MLB').innerHTML = mypost + tmp;
-						} 
-						if (newposts[i].sub_category == "College") {	
-							var tmp = document.getElementById('College').innerHTML;
-							document.getElementById('College').innerHTML = mypost + tmp;
-						} 
-					
-					} 
-					else if (newposts[i].category== "Business") {	
-						var tmp = document.getElementById('Business').innerHTML;
-						mypost = formatpost(newposts[i]);
-						document.getElementById('Business').innerHTML = mypost + tmp;
-					
-					} 
-					else if (newposts[i].category== "Politics") {	
-						var tmp = document.getElementById('Politics').innerHTML;
-						mypost = formatpost(newposts[i]);
-						document.getElementById('Politics').innerHTML = mypost + tmp;
-					
-					} 
-					else if (newposts[i].category == "Entertainment") {	
-						var tmp = document.getElementById('Entertainment').innerHTML;
-						mypost = formatpost(newposts[i]);
-						document.getElementById('Entertainment').innerHTML = mypost + tmp;
-					
-					}
-					else if (newposts[i].category== "Tech") {	
-						var tmp = document.getElementById('Tech').innerHTML;
-						mypost = formatpost(newposts[i]);
-						document.getElementById('Tech').innerHTML = mypost + tmp;
-					
-					}
-					else {
-						var tmp = document.getElementById('Notable').innerHTML;
-						mypost = formatpost(newposts[i]);
-						document.getElementById('Notable').innerHTML = mypost + tmp;
-					
-					}
-					
+				if (newposts[i].hasOwnProperty("category") ) {
+                    var $col = $('#' + newposts[i].category);
+                    if (!$col.length) $col = $('#Notable');
+                    $col.prepend(formatPost(newposts[i]));
+                    
+                    // hide old post if needed
+                    var $col_new = $col.children('.post_new');
+                    if ($col_new.length > maxp) {
+                        $col_new.last().removeClass('post_new');
+                        $col_new.last().addClass('post_old');
+                        $col_new.last().hide();
+                    }
 					
 					if(++i<l) {
 						setTimeout(iterator, delay);
@@ -222,18 +136,36 @@
 			})();
 		}
 
-       
-
 		var browsertime = new Date(data.time);
 		browsertime.toString(); 
 
         $('time').html('Last Update:' + browsertime);
-      });
+    });
+    
+    // format feed
+    function formatPost(post) {
+        var posthtml = '<ul class="post_new"><li><div class="P9Table" >';
+        posthtml +=  '<table><tr><td class="hidOnMobile" style="text-align: left; vertical-align: top;"><span >	<a rel="popover" data-url="'+post.url+'" data-img="https://s3.amazonaws.com/poundnine/www2jpg/'+post.s3key+'.jpg"><img src="http://www.poundnine.com/wp-content/themes/jupiter/images/logo/' + post.logo + '"  style="float:left;padding:3px;" ></a></span></td>';
+        posthtml +=  '<td style="text-align: left; vertical-align: middle;"><span class="zeroButtomPadding" style="max-width: 80%;text-align: left;"><a style="text-decoration: none;" rel="popover" data-url="'+post.url+'" data-img="https://s3.amazonaws.com/poundnine/www2jpg/'+post.s3key+'.jpg">' + post.body + '...</a></span></td>';
+        posthtml +=  '</tr></table></div></li></ul>';
+        return posthtml;
+    }
+
+    // bottom scroll trigger
+    $(window).scroll(function() {
+        if($(window).scrollTop() + window.innerHeight > $(document).height() - 50) {
+//            $(window).unbind('scroll');
+            var $f_old = $('.col_data > .post_new + .post_old');
+            $f_old.removeClass('post_old');
+            $f_old.addClass('post_new');
+            $f_old.fadeIn(500);
+        }
+    });
 </script>
 	
 <!-- Page body -->	
 <div class="header">
-		<div class="container-fluid">
+    <div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1">
 				<span><img class="lightbox-false" alt="" title="" src="images/roxy.png" ></span>
@@ -246,9 +178,15 @@
 			</div>
 			<div class="col-md-4">
 				<time style="text-align:right; margin-top:10px; display:block;"></time>
-				<div class="col_button">
-					<i class="fa fa-cog fa-lg"></i>
-				</div>
+				<div class="opt_button"><i class="fa fa-cog fa-lg"></i></div>
+                <div class="opt_dropdown dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Category
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="opt_dmenu dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                    </ul>
+                </div> 
 			</div>
 		</div>
 	</div>
@@ -291,66 +229,65 @@
 	<div class="col span_1_of_5 col_wrapper">
         <div id="College" class="col_data"></div>
 	</div>
+	
 </div>
 
 		
 <!-- Modal window -->
 <div class="modal fade" id="popModal" role="dialog">
     <div class="modal-dialog" style="width:70%; height:auto;">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"></h4>
-			</div>
-			<div class="modal-body">
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		</div>
-	</div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
 </div>		
 
+<div class="opt_wrapper">
+    <p class="opt_header">Pick 5:</p>
+    <div class="opt_cols"></div>  
+</div>
 
-<div class="col_options">Pick 5:<br></div>
-<!-- drag and drop js -->
 <script>
-/* dynamic content for modal window*/          
+    /* dynamic content for modal window*/          
 
-function SocialShare(url){window.open(url,"_blank","scrollbars=yes, resizable=yes, top=100, left=400, width=800, height=450");};
+    function SocialShare(url){window.open(url,"_blank","scrollbars=yes, resizable=yes, top=100, left=400, width=800, height=450");};
 
-$(document).on("click",'a[rel=popover]',function(){
+    $(document).on("click",'a[rel=popover]',function(){
+        var url = $(this).data('url');
+        var twitter_share 	= 'http://twitter.com/share?url=' + url + '&via=myheadline.news';
+        var facebook_share 	= 'http://www.facebook.com/sharer/sharer.php?u=' + url;
+        var google_share	= 'https://plus.google.com/share?url=' + url;
+        var linkedin_share	= 'http://www.linkedin.com/shareArticle?url=' + url + '&source=myheadline.news';
+        var reddit_share	= 'http://reddit.com/submit?url=' + url;
 
-		var url = $(this).data('url');
-		
-		var twitter_share 	= 'http://twitter.com/share?url=' + url + '&via=myheadline.news';
-		var facebook_share 	= 'http://www.facebook.com/sharer/sharer.php?u=' + url;
-		var google_share	= 'https://plus.google.com/share?url=' + url;
-		var linkedin_share	= 'http://www.linkedin.com/shareArticle?url=' + url + '&source=myheadline.news';
-		var reddit_share	= 'http://reddit.com/submit?url=' + url;
-		
-		var title = 'Share: ';
-		title += '<a href="javascript:SocialShare(\''+twitter_share+'\')" class="share-btn twitter"><i class="fa fa-twitter"></i></a>'; 
-		title += '<a href="javascript:SocialShare(\''+facebook_share+'\')" class="share-btn facebook"><i class="fa fa-facebook"></i></a>'; 
-		title += '<a href="javascript:SocialShare(\''+google_share+'\')" class="share-btn google-plus"><i class="fa fa-google-plus"></i></a>'; 
-		title += '<a href="javascript:SocialShare(\''+linkedin_share+'\')" class="share-btn linkedin"><i class="fa fa-linkedin"></i></a>'; 
-		title += '<a href="javascript:SocialShare(\''+reddit_share+'\')" class="share-btn reddit"><i class="fa fa-reddit"></i></a>'; 
-		title += '<span style="float: right; padding: 10px 50px 0 0;"><a href="'+url+'" target="_blank">Link to Article</a></span>';
-		//title += '<a href="javascript:SocialShare(\'' . $reddit_share 	. '\')" class="share-btn reddit"><i class="fa fa-reddit"></i></a>'; 
-	
-		$('#popModal .modal-body').html('<img src="'+$(this).data('img') + '" style="width:100%;"/>');
-		$('#popModal .modal-title').html(title);
+        var title = 'Share: ';
+        title += '<a href="javascript:SocialShare(\''+twitter_share+'\')" class="share-btn twitter"><i class="fa fa-twitter"></i></a>'; 
+        title += '<a href="javascript:SocialShare(\''+facebook_share+'\')" class="share-btn facebook"><i class="fa fa-facebook"></i></a>'; 
+        title += '<a href="javascript:SocialShare(\''+google_share+'\')" class="share-btn google-plus"><i class="fa fa-google-plus"></i></a>'; 
+        title += '<a href="javascript:SocialShare(\''+linkedin_share+'\')" class="share-btn linkedin"><i class="fa fa-linkedin"></i></a>'; 
+        title += '<a href="javascript:SocialShare(\''+reddit_share+'\')" class="share-btn reddit"><i class="fa fa-reddit"></i></a>'; 
+        title += '<span style="float: right; padding: 10px 50px 0 0;"><a href="'+url+'" target="_blank">Link to Article</a></span>';
+        //title += '<a href="javascript:SocialShare(\'' . $reddit_share 	. '\')" class="share-btn reddit"><i class="fa fa-reddit"></i></a>'; 
 
-		
-	$('#popModal').modal();
-});
+        $('#popModal .modal-body').html('<img src="'+$(this).data('img') + '" style="width:100%;"/>');
+        $('#popModal .modal-title').html(title);
 
 
+        $('#popModal').modal();
+    });
 </script>
 
 <!-- drag and drop js -->
 <script src="js/interact.min.js"></script>
-<script src="js/doptions.js"></script>		
+<script src="js/doptions.js"></script>
 
 <!-- google analytics -->
 <script>
@@ -358,10 +295,11 @@ $(document).on("click",'a[rel=popover]',function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
+ 
   ga('create', 'UA-73557321-1', 'auto');
   ga('send', 'pageview');
 </script>
-			
+
+
 </body>
 </html>
